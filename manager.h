@@ -20,9 +20,13 @@ class manager
             for (int i(0); i<20; ++i)
                 elements[i] = false;
             
+            p.setState(1);
+            c.setState(0);
+
             p.setIndex(0);
             c.setIndex(0);
             randomTurn = 0;
+            turn = true;
         };
 
         //methods
@@ -135,13 +139,15 @@ bool manager::isFullOrEmpty(bool c)
 //manages the production and cosumption
 int manager::execution()
 {   
+    randomTurn = (rand()%4)+3;
+    
     //if the element queue is full
     //forcefully the producer is shut off
-    if(isFullOrEmpty(1)){
+    if (isFullOrEmpty(1)){
         p.setState(0);
         c.setState(1);
     }
-    
+
     //if the element queue is empty
     //forcefully the consumer is shut off
     if(isFullOrEmpty(0)){
@@ -149,10 +155,9 @@ int manager::execution()
         p.setState(1);
     }
         
-    randomTurn = (rand()%4)+3;
     
     //if the consumer is off the producer can work
-    if(!c.getState()){
+    if(!c.getState() && turn){
         p.setState(1);
         for (; randomTurn > 0 && !isFullOrEmpty(1); randomTurn--){
             elements[p.getIndex()] = 1;
@@ -166,7 +171,7 @@ int manager::execution()
     }
     
     //if the producer is off the consumer can work
-    if(!p.getState()){
+    if(!p.getState() && !turn){
         c.setState(1);
         for (;randomTurn > 0 && !isFullOrEmpty(0); randomTurn--){
             elements[c.getIndex()] = 0;
