@@ -158,10 +158,7 @@ int manager::execution()
             elements[p.getIndex()] = 1;
             p.setIndex((p.getIndex()+1)%20);
             draw();
-            SLEEP(500);
-            
-            if(!(rand()%7))
-                return 0;
+            SLEEP(500);        
 
             if(kbhit())
                 return getch();
@@ -176,9 +173,6 @@ int manager::execution()
             c.setIndex((c.getIndex() + 1) % 20);
             draw();
             SLEEP(500);
-
-            if (!(rand() % 7))
-                return 0;
 
             if(kbhit())
                 return getch();
