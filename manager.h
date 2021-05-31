@@ -41,7 +41,7 @@ void manager::mainMethod()
     {
         //if we return here and randomTurn variable isn't 0
         //it means the turn was interrupted
-        if(randomTurn){
+        if (randomTurn > 0 && x != 27){
             GOTOXY(48, 3);
             std::cout << "--- Turno interrumpido ---";
         }
@@ -53,7 +53,7 @@ void manager::mainMethod()
         turn = rand()%2;
         
         //Dramatic pause
-        SLEEP(2000);
+        SLEEP(1500);
 
         if(turn){
             p.setState(1);
@@ -160,7 +160,7 @@ int manager::execution()
             draw();
             SLEEP(500);
             
-            if(!(rand()%10))
+            if(!(rand()%7))
                 return 0;
 
             if(kbhit())
@@ -177,7 +177,7 @@ int manager::execution()
             draw();
             SLEEP(500);
 
-            if (!(rand() % 10))
+            if (!(rand() % 7))
                 return 0;
 
             if(kbhit())
