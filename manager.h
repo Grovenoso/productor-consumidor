@@ -46,12 +46,12 @@ void manager::mainMethod()
         //if we return here and randomTurn variable isn't 0
         //it means the turn was interrupted
         if (randomTurn > 0 && x != 27){
-            GOTOXY(48, 3);
+            GOTOXY(48, 1);
             std::cout << "--- Turno interrumpido ---";
         }
 
         //Decision on who can get into buffer
-        GOTOXY(48, 4);
+        GOTOXY(48, 3);
         std::cout << "Toma de turno: ----------";
 
         turn = rand()%2;
@@ -69,9 +69,22 @@ void manager::mainMethod()
         }
 
         //Cleaning up the "turn interrupted" warning
-        GOTOXY(48, 3);
+        GOTOXY(48, 1);
         std::cout << "                          ";
+
+        GOTOXY(48, 11);
+        std::cout << "Intento de ingreso de " << CYAN
+                  << (turn ? "Productor " : "Consumidor");
         
+        if((isFullOrEmpty(1) && turn) || (isFullOrEmpty(0) && !turn)){
+            GOTOXY(80, 11);
+            std::cout << RED << " invalido" << RESET;
+        }
+        else{
+            GOTOXY(80, 11);
+            std::cout << GREEN << " valido  " << RESET;
+        }
+
         //We go to execution
         x = execution();
 
@@ -85,7 +98,7 @@ void manager::mainMethod()
 void manager::draw()
 {
 
-    GOTOXY(48, 4);
+    GOTOXY(48, 3);
     std::cout << "Toma de turno: " << (turn ? "Productor " : "Consumidor");
     
     GOTOXY(48, 5);
